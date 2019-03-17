@@ -1,0 +1,52 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="jumbotron">
+		  <h1 class="display-4">Fall 2018 Stats</h1>
+		  <p class="lead">Detailed information on how the Buffs are doing in the 2018 Football Season!</p>
+		</div>
+		
+		<table class="table table-bordered" id="stats_table">
+			<tr>
+				<th class="align-bottom" rowspan="2">Game Date</th>
+				<th class="align-bottom"rowspan="2">Opposing Team Name</th>
+				<th class="text-center" colspan="2">Score</th>
+				<th class="align-bottom" rowspan="2">Winner</th>
+			</tr>
+			<tr>
+				<th>Home Score</th>
+				<th>Opp. Score</th>
+			</tr>
+			<%if(fall_szn) {%>
+				<%var t = "document.getElementById('stats_table')";%>
+				<%fall_szn.forEach(function(game) {%>
+					<%var winner = '';%>
+					<%if(game.home_score >= game.visitor_score) {winner = "CU";}  else {winner = game.visitor_name;}%>
+					<%var row = "<tr><td>"+ game.game_date +"</td><td>"+ game.visitor_name +"</td><td>"+ game.home_score +"</td><td>"+ game.visitor_score +"</td><td>"+ winner +"</td></tr>";%>
+					<%-row%>
+				<%});%>
+			<%}%>
+			
+		</table>
+		<br>
+		<table class="table text-center">
+			<tr>
+				<th>Wins</th>
+				<th>Losses</th>
+			</tr>
+			<tr>
+				<td>
+					<%var w = 'N/A';%>
+					<%if(wins) {w = wins[0].count;}%>
+					<%-"<p>"+w+"</p>"%>
+				</td>
+				<td> 
+					<%var l = 'N/A';%>
+					<%if(losses) {l = losses[0].count;}%>
+					<%-"<p>"+l+"</p>"%>		
+				</td>
+			</tr>
+		</table>
+	</div>
+<% include ../partials/footer %>
